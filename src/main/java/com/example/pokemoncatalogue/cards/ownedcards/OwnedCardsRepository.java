@@ -1,4 +1,4 @@
 package com.example.pokemoncatalogue.cards.ownedcards;
 
-public class OwnedControllerRepository {
+public class OwnedCardsRepository {
 }
