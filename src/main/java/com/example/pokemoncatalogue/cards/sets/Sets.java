@@ -1,12 +1,11 @@
 package com.example.pokemoncatalogue.cards.sets;
 
-import com.example.pokemoncatalogue.util.ConditionEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 
 @Entity
@@ -27,10 +26,10 @@ public class Sets {
     private String series;
 
     @Column(name = "card_total", nullable = false)
-    private String cardTotal;
+    private int cardTotal;
 
     @Column(name = "release_date", nullable = false)
-    private Date releaseDate;
+    private LocalDate releaseDate;
 
     @Column(name = "symbol_image_link", nullable = false)
     private String symbolImage;

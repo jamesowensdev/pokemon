@@ -23,7 +23,8 @@ public class UserService {
         return new UserDTO(
                 user.getId(),
                 user.getUsername(),
-                user.getEmail()
+                user.getEmail(),
+                user.getRole()
         );
     }
 
@@ -59,7 +60,8 @@ public class UserService {
                 userDTO.getId(),
                 userDTO.getUsername(),
                 userDTO.getEmail(),
-                encodePassword(rawPassword)
+                encodePassword(rawPassword),
+                userDTO.getRole()
         );
 
         return mapToDTO(repository.save(newUser));

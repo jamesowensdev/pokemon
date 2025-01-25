@@ -1,5 +1,6 @@
 package com.example.pokemoncatalogue.user;
 
+import com.example.pokemoncatalogue.util.enums.Roles;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,8 +14,9 @@ import lombok.AllArgsConstructor;
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", nullable = false, unique = true)
-    private Long id;
+    private long id;
 
     @Column(name = "username", nullable = false, unique = true)
     private String username;
@@ -24,5 +26,10 @@ public class User {
 
     @Column(name = "password", nullable = false)
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    private Roles role;
+
 
 }
