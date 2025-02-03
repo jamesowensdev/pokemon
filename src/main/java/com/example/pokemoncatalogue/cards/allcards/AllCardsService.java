@@ -62,7 +62,7 @@ public class AllCardsService {
                 card.getId(),
                 card.getCardName(),
                 card.getCardType(),
-                card.getSetName(),
+                card.getSetId(),
                 card.getRarity(),
                 card.getImageLink()
         );

@@ -1,5 +1,8 @@
 package com.example.pokemoncatalogue.cards.ownedcards;
 
+import com.example.pokemoncatalogue.cards.allcards.AllCardsDTO;
+import com.example.pokemoncatalogue.cards.allcards.AllCardsRepository;
+import com.example.pokemoncatalogue.cards.allcards.AllCardsService;
 import com.example.pokemoncatalogue.util.enums.CardCondition;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -8,60 +11,65 @@ import java.util.stream.Collectors;
 @Service
 public class OwnedCardsService {
 
-    private final OwnedCardsRepository repository;
+    private final OwnedCardsRepository ownedCardsRepository;
+    private final AllCardsRepository  allCardsRepository;
 
-    private OwnedCardsService(OwnedCardsRepository repository){
-        this.repository = repository;
+    private OwnedCardsService(OwnedCardsRepository ownedCardsRepository, AllCardsRepository allCardsRepository){
+        this.ownedCardsRepository = ownedCardsRepository;
+        this.allCardsRepository = allCardsRepository;
 
     }
-    private OwnedCardsDTO mapToDTO(OwnedCards card) {
+    private OwnedCardsDTO mapToDTO(OwnedCards card, AllCardsRepository allCardsRepository) {
+        AllCardsDTO cardDetails = new AllCardsService(allCardsRepository).getCardById(card.getCardId());
         return new OwnedCardsDTO(
                 card.getCardId(),
                 card.getCondition(),
                 card.isGraded(),
-                card.getRating()
+                card.getRating(),
+                cardDetails
+
         );
     }
 
     public List<OwnedCardsDTO> getAllCardsByOwner(long id){
-        return repository.findAllCardsByOwner(id)
+        return ownedCardsRepository.findAllCardsByOwner(id)
                 .stream()
-                .map(this::mapToDTO)
+                .map(card -> mapToDTO(card, allCardsRepository))
                 .collect(Collectors.toList());
     }
 
     public List<OwnedCardsDTO> getOwnersCardsByName(String cardName, long id){
-        return repository.findCardsByName(cardName, id)
+        return ownedCardsRepository.findCardsByName(cardName, id)
                 .stream()
-                .map(this::mapToDTO)
+                .map(card -> mapToDTO(card, allCardsRepository))
                 .collect(Collectors.toList());
     }
 
     public List<OwnedCardsDTO> getOwnersCardsBySet(String set, long id){
-        return repository.findCardsBySet(set, id)
+        return ownedCardsRepository.findCardsBySet(set, id)
                 .stream()
-                .map(this::mapToDTO)
+                .map(card -> mapToDTO(card, allCardsRepository))
                 .collect(Collectors.toList());
     }
 
     public List<OwnedCardsDTO> getOwnersCardsByCondition(CardCondition condition, long id){
-        return repository.findCardsByCondition(condition, id)
+        return ownedCardsRepository.findCardsByCondition(condition, id)
                 .stream()
-                .map(this::mapToDTO)
+                .map(card -> mapToDTO(card, allCardsRepository))
                 .collect(Collectors.toList());
     }
 
     public List<OwnedCardsDTO> getOwnersGradedCards(boolean graded, long id){
-        return repository.findGradedCards(graded, id)
+        return ownedCardsRepository.findGradedCards(graded, id)
                 .stream()
-                .map(this::mapToDTO)
+                .map(card -> mapToDTO(card, allCardsRepository))
                 .collect(Collectors.toList());
     }
 
     public List<OwnedCardsDTO> getOwnersCardsByRating(int rating, long id){
-        return repository.findCardByRating(rating, id)
+        return ownedCardsRepository.findCardByRating(rating, id)
                 .stream()
-                .map(this::mapToDTO)
+                .map(card -> mapToDTO(card, allCardsRepository))
                 .collect(Collectors.toList());
 
     }

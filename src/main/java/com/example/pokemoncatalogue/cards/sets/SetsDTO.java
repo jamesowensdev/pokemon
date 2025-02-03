@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class SetsDTO {
-    private String setName;
+    private String name;
     private String series;
     private int cardTotal;
     private LocalDate releaseDate;

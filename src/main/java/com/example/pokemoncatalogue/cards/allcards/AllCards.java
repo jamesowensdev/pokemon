@@ -27,7 +27,7 @@ public class AllCards {
     private String cardType;
 
     @Column(name = "set_id", nullable = false)
-    private String setName;
+    private String setId;
 
     @Column(name = "rarity", nullable = false)
     private String rarity;

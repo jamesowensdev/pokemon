@@ -20,7 +20,7 @@ public class Sets {
     private String id;
 
     @Column(name = "set_name", nullable = false)
-    private String setName;
+    private String name;
 
     @Column(name = "series", nullable = false)
     private String series;
